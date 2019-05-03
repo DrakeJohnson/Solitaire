@@ -11,6 +11,7 @@ public class Game {
 	//Objects
 	Scanner read;
 	ArrayList<String> Deck;
+	ArrayList<String> removedFromDeck;
 	ArrayList<String> discardPile;
 	Random rand;
 	String[][] field;
@@ -21,6 +22,7 @@ public class Game {
 		
 		read = new Scanner(System.in);
 		Deck = new ArrayList<String>();
+		removedFromDeck = new ArrayList<String>();
 		discardPile = new ArrayList<String>();
 		rand = new Random();
 		field = new String[13][14];
@@ -43,16 +45,16 @@ public class Game {
 				
 				//Numbers
 				if (y == 0)
-					Deck.add(x + " of Spades");
+					Deck.add(x + "Spades");
 				
 				if (y == 1)
-					Deck.add(x + " of Diamonds");
+					Deck.add(x + "Diamonds");
 				
 				if (y == 2)
-					Deck.add(x + " of Hearts");
+					Deck.add(x + "Hearts");
 				
 				if (y == 3)
-					Deck.add(x + " of Clubs");
+					Deck.add(x + "Clubs");
 					
 			}//endFor
 			
@@ -170,19 +172,19 @@ public class Game {
 	//Utility function to create the imaginary field
 	public void generateActualField() {
 		
-		//"Draw" from the deck to place cards by row, then decrement columns
-		 
-		for (int x = 0; x < 13; x ++) {
-			
-			for (int y = 14; y > 0; y --) {
-				
-				imagineField[x][y] = Deck.remove(0);
-				
-			}//endFor
-			
-		}//endFor
+		//Variables
+		String nextDraw = " ";
 		
+		//Get the next card and set to nextDraw
+		nextDraw = Deck.get(0);
 		
+		//Move that card to the removed pile
+		removedFromDeck.add(Deck.remove(0));
+		
+		//Set the nextDraw to the next position in the field
+		imagineField[0][0].equals(nextDraw);
+		
+		System.out.print(imagineField[0][0]);
 		
 	}//endMethod
 	

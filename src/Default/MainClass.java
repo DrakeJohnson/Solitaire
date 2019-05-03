@@ -18,7 +18,7 @@ public class MainClass {
 		
 		//**TESTING**//
 		
-		System.out.println(solitaire.imagineField);
+		//System.out.println(solitaire.imagineField);
 		
 		
 	}//endMain
