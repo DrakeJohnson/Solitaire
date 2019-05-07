@@ -60,25 +60,25 @@ public class Game {
 			
 		}//endFor
 		
-		Deck.add("Jack of Spades");
-		Deck.add("Jack of Diamonds");
-		Deck.add("Jack of Hearts");
-		Deck.add("Jack of Clubs");
+		Deck.add("JackSpades");
+		Deck.add("JackDiamonds");
+		Deck.add("JackHearts");
+		Deck.add("JackClubs");
 		
-		Deck.add("Queen of Spades");
-		Deck.add("Queen of Diamonds");
-		Deck.add("Queen of Hearts");
-		Deck.add("Queen of Clubs");
+		Deck.add("QueenSpades");
+		Deck.add("QueenDiamonds");
+		Deck.add("QueenHearts");
+		Deck.add("QueenClubs");
 		
-		Deck.add("King of Spades");
-		Deck.add("King of Diamonds");
-		Deck.add("King of Hearts");
-		Deck.add("King of Clubs");
+		Deck.add("KingSpades");
+		Deck.add("KingDiamonds");
+		Deck.add("KingHearts");
+		Deck.add("KingClubs");
 		
-		Deck.add("Ace of Spades");
-		Deck.add("Ace of Diamonds");
-		Deck.add("Ace of Hearts");
-		Deck.add("Ace of Clubs");
+		Deck.add("AceSpades");
+		Deck.add("AceDiamonds");
+		Deck.add("AceHearts");
+		Deck.add("AceClubs");
 		
 	}//endMethod
 	
@@ -193,6 +193,20 @@ public class Game {
 		for (int x = 0; x < 12; x ++) {
 			
 			placeCards(2, x, nextDraw);
+			
+		}//endFor
+		
+		//Loop through the 4th row
+		for (int x = 0; x < 11; x ++) {
+			
+			placeCards(3, x, nextDraw);
+			
+		}//endFor
+		
+		//Loop through the 5th row
+		for (int x = 0; x < 10; x ++) {
+			
+			placeCards(4, x, nextDraw);
 			
 		}//endFor
 		
