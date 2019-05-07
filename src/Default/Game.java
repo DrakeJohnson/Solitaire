@@ -175,19 +175,54 @@ public class Game {
 		//Variables
 		String nextDraw = " ";
 		
-		//Get the next card and set to nextDraw
-		nextDraw = Deck.get(0);
+		//Loop through the columns in the specific row
+		for (int x = 0; x < 14; x ++) {
+			
+			placeCards(0, x, nextDraw);
+			
+		}//endIf
 		
-		//Move that card to the removed pile
-		removedFromDeck.add(Deck.remove(0));
+		//Loop through the second row
+		for (int x = 0; x < 13; x ++) {
+			
+			placeCards(1, x, nextDraw);
+			
+		}//endFor
 		
-		//Set the nextDraw to the next position in the field
-		imagineField[0][0].equals(nextDraw);
+		//Loop through the third row
+		for (int x = 0; x < 12; x ++) {
+			
+			placeCards(2, x, nextDraw);
+			
+		}//endFor
 		
-		System.out.print(imagineField[0][0]);
+		for (int p = 0; p < 13; p ++) {
+			
+			for (int q = 0; q < 14; q ++) {
+				
+				System.out.print(imagineField[p][q]);
+				
+			}//endFor
+			
+			System.out.println("");
+			
+		}//endFor
 		
 	}//endMethod
 	
-	
+	//Utility function for generateActual Field to get the next card, remove it, then set it to the given position
+	public void placeCards(int currRow, int currCol, String next) {
+		
+		//Get the card
+		next = Deck.get(0);
+		
+		//Move to removed
+		removedFromDeck.add(Deck.remove(0));
+		
+		//Set that card to the position
+		imagineField[currRow][currCol] = next;
+		
+		
+	}//endMethod
 	
 }//endClass
