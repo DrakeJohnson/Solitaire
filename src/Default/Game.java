@@ -16,6 +16,7 @@ public class Game {
 	Random rand;
 	String[][] field;
 	String[][] imagineField;
+	String[][] scoreField;
 	
 	//Constructor
 	public Game() {
@@ -27,6 +28,7 @@ public class Game {
 		rand = new Random();
 		field = new String[13][14];
 		imagineField = new String[13][14];
+		scoreField = new String[13][7];
 		
 	}//endConstructor
 	
@@ -167,7 +169,7 @@ public class Game {
 		
 	}//endMethod
 	
-	//Utility function to create the imaginary field
+	//Function to create the imaginary field
 	public void generateImagineField() {
 		
 		//Variables
@@ -188,8 +190,8 @@ public class Game {
 		//Loop through the columns in the 1st row
 		for (int x = 0; x < 14; x ++) {
 			
-			//Only place cards on the odd places and set the evens to a space
-			if (x % 2 != 0) {
+			//Only place cards on the even places and set the evens to a space
+			if (x % 2 == 0) {
 			
 				placeCards(0, x, nextDraw);
 			
@@ -204,8 +206,8 @@ public class Game {
 		//Loop through the 2nd row
 		for (int x = 0; x < 12; x ++) {
 			
-			//Only place cards on the odd places and set the evens to a space
-			if (x % 2 != 0) {
+			//Only place cards on the even places and set the evens to a space
+			if (x % 2 == 0) {
 			
 				placeCards(1, x, nextDraw);
 			
@@ -220,8 +222,8 @@ public class Game {
 		//Loop through the 3rd row
 		for (int x = 0; x < 10; x ++) {
 					
-			//Only place cards on the odd places and set the evens to a space
-			if (x % 2 != 0) {
+			//Only place cards on the even places and set the evens to a space
+			if (x % 2 == 0) {
 					
 				placeCards(2, x, nextDraw);
 					
@@ -236,8 +238,8 @@ public class Game {
 		//Loop through the 4th row
 		for (int x = 0; x < 8; x ++) {
 					
-			//Only place cards on the odd places and set the evens to a space
-			if (x % 2 != 0) {
+			//Only place cards on the even places and set the evens to a space
+			if (x % 2 == 0) {
 					
 				placeCards(3, x, nextDraw);
 					
@@ -252,8 +254,8 @@ public class Game {
 		//Loop through the 5th row
 		for (int x = 0; x < 6; x ++) {
 					
-			//Only place cards on the odd places and set the evens to a space
-			if (x % 2 != 0) {
+			//Only place cards on the even places and set the evens to a space
+			if (x % 2 == 0) {
 					
 				placeCards(4, x, nextDraw);
 				
@@ -268,8 +270,8 @@ public class Game {
 		//Loop through the 6th row
 		for (int x = 0; x < 4; x ++) {
 					
-			//Only place cards on the odd places and set the evens to a space
-			if (x % 2 != 0) {
+			//Only place cards on the even places and set the evens to a space
+			if (x % 2 == 0) {
 					
 				placeCards(5, x, nextDraw);
 					
@@ -284,8 +286,8 @@ public class Game {
 		//Loop through the 7th row
 		for (int x = 0; x < 2; x ++) {
 					
-			//Only place cards on the odd places and set the evens to a space
-			if (x % 2 != 0) {
+			//Only place cards on the even places and set the evens to a space
+			if (x % 2 == 0) {
 					
 				placeCards(6, x, nextDraw);
 					
@@ -322,6 +324,158 @@ public class Game {
 			for (int y = 0; y < 14; y ++) {
 				
 				System.out.print(imagineField[x][y]);
+				
+			}//endFor
+			
+			System.out.println("");
+			
+		}//endFor
+		
+	}//endMethod
+	
+	//**************************************************************************\\
+	
+	//Function to create the player's field
+	public void generateField() {
+		
+		//First set the entire array to double spaces
+		for (int x = 0; x < 13; x ++) {
+					
+			for (int y = 0; y < 14; y ++) {
+						
+				field[x][y] = "  ";
+						
+			}//endFor
+					
+		}//endFor
+				
+		//Loop through the columns in the 1st row
+		for (int x = 0; x < 14; x ++) {
+					
+			//Only place cards on the even places and set the evens to a space
+			if (x % 2 == 0) {
+					
+				field[0][x] = "**";
+					
+			} else {
+						
+				field[0][x] = "  ";
+						
+			}//endIf
+						
+		}//endFor
+		
+		//*****************************************\\
+		//TODO
+		//Pulled from generate Imaginary Field so format like it above
+				
+				//Loop through the 2nd row
+				for (int x = 0; x < 12; x ++) {
+					
+					//Only place cards on the even places and set the evens to a space
+					if (x % 2 == 0) {
+					
+						//placeCards(1, x, nextDraw);
+					
+					} else {
+						
+						imagineField[1][x] = "  ";
+						
+					}//endIf
+					
+				}//endFor
+				
+				//Loop through the 3rd row
+				for (int x = 0; x < 10; x ++) {
+							
+					//Only place cards on the even places and set the evens to a space
+					if (x % 2 == 0) {
+							
+						//placeCards(2, x, nextDraw);
+							
+					} else {
+								
+						imagineField[2][x] = "  ";
+								
+					}//endIf
+							
+				}//endFor
+						
+				//Loop through the 4th row
+				for (int x = 0; x < 8; x ++) {
+							
+					//Only place cards on the even places and set the evens to a space
+					if (x % 2 == 0) {
+							
+						//placeCards(3, x, nextDraw);
+							
+					} else {
+								
+						imagineField[3][x] = "  ";
+								
+					}//endIf
+							
+				}//endFor
+						
+				//Loop through the 5th row
+				for (int x = 0; x < 6; x ++) {
+							
+					//Only place cards on the even places and set the evens to a space
+					if (x % 2 == 0) {
+							
+						//placeCards(4, x, nextDraw);
+						
+					} else {
+								
+						imagineField[4][x] = "  ";
+								
+					}//endIf
+							
+				}//endFor
+				
+				//Loop through the 6th row
+				for (int x = 0; x < 4; x ++) {
+							
+					//Only place cards on the even places and set the evens to a space
+					if (x % 2 == 0) {
+							
+						//placeCards(5, x, nextDraw);
+							
+					} else {
+								
+						imagineField[5][x] = "  ";
+								
+					}//endIf
+						
+				}//endFor
+				
+				//Loop through the 7th row
+				for (int x = 0; x < 2; x ++) {
+							
+					//Only place cards on the even places and set the evens to a space
+					if (x % 2 == 0) {
+							
+						//placeCards(6, x, nextDraw);
+							
+					} else {
+								
+						imagineField[6][x] = "  ";
+								
+					}//endIf
+							
+				}//endFor
+		
+	}//endMethod
+	
+	//Utility function to print the player's field
+	public void printField() {
+		
+		//Loop through each space
+		for (int x = 0; x < 13; x ++) {
+			
+			for (int y = 0; y < 14; y ++) {
+				
+				System.out.print(field[x][y]);
 				
 			}//endFor
 			

@@ -19,6 +19,13 @@ public class MainClass {
 		
 		solitaire.generateImagineField();
 		solitaire.printImagineField();
+		solitaire.generateField();
+		
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		
+		solitaire.printField();
 		
 	}//endMain
 
