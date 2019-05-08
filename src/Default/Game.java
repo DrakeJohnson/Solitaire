@@ -362,108 +362,113 @@ public class Game {
 				field[0][x] = "  ";
 						
 			}//endIf
+			
+		}//endFor
+				
+		//Loop through the 2nd row
+		for (int x = 0; x < 12; x ++) {
+					
+			//Only place cards on the even places and set the evens to a space
+			if (x % 2 == 0) {
+					
+				field[1][x] = "**";
+					
+			} else {
+						
+				field[1][x] = "  ";
+						
+			}//endIf
+					
+		}//endFor
+				
+		//Loop through the 3rd row
+		for (int x = 0; x < 10; x ++) {
+							
+			//Only place cards on the even places and set the evens to a space
+			if (x % 2 == 0) {
+							
+				field[2][x] = "**";
+							
+			} else {
+								
+				field[2][x] = "  ";
+								
+			}//endIf
+							
+		}//endFor
+						
+		//Loop through the 4th row
+		for (int x = 0; x < 8; x ++) {
+							
+			//Only place cards on the even places and set the evens to a space
+			if (x % 2 == 0) {
+							
+				field[3][x] = "**";
+							
+			} else {
+								
+				field[3][x] = "  ";
+								
+			}//endIf
+							
+		}//endFor
+						
+		//Loop through the 5th row
+		for (int x = 0; x < 6; x ++) {
+							
+			//Only place cards on the even places and set the evens to a space
+			if (x % 2 == 0) {
+							
+				field[4][x] = "**";
+						
+			} else {
+								
+				field[4][x] = "  ";
+								
+			}//endIf
+							
+		}//endFor
+				
+		//Loop through the 6th row
+		for (int x = 0; x < 4; x ++) {
+							
+			//Only place cards on the even places and set the evens to a space
+			if (x % 2 == 0) {
+							
+				field[5][x] = "**";
+							
+			} else {
+								
+				field[5][x] = "  ";
+								
+			}//endIf
 						
 		}//endFor
+				
+		//Loop through the 7th row
+		for (int x = 0; x < 2; x ++) {
+							
+			//Only place cards on the even places and set the evens to a space
+			if (x % 2 == 0) {
+							
+				field[6][x] = "**";
+							
+			} else {
+								
+				field[6][x] = "  ";
+								
+			}//endIf
+							
+		}//endFor
 		
-		//*****************************************\\
-		//TODO
-		//Pulled from generate Imaginary Field so format like it above
-				
-				//Loop through the 2nd row
-				for (int x = 0; x < 12; x ++) {
-					
-					//Only place cards on the even places and set the evens to a space
-					if (x % 2 == 0) {
-					
-						//placeCards(1, x, nextDraw);
-					
-					} else {
-						
-						imagineField[1][x] = "  ";
-						
-					}//endIf
-					
-				}//endFor
-				
-				//Loop through the 3rd row
-				for (int x = 0; x < 10; x ++) {
-							
-					//Only place cards on the even places and set the evens to a space
-					if (x % 2 == 0) {
-							
-						//placeCards(2, x, nextDraw);
-							
-					} else {
-								
-						imagineField[2][x] = "  ";
-								
-					}//endIf
-							
-				}//endFor
-						
-				//Loop through the 4th row
-				for (int x = 0; x < 8; x ++) {
-							
-					//Only place cards on the even places and set the evens to a space
-					if (x % 2 == 0) {
-							
-						//placeCards(3, x, nextDraw);
-							
-					} else {
-								
-						imagineField[3][x] = "  ";
-								
-					}//endIf
-							
-				}//endFor
-						
-				//Loop through the 5th row
-				for (int x = 0; x < 6; x ++) {
-							
-					//Only place cards on the even places and set the evens to a space
-					if (x % 2 == 0) {
-							
-						//placeCards(4, x, nextDraw);
-						
-					} else {
-								
-						imagineField[4][x] = "  ";
-								
-					}//endIf
-							
-				}//endFor
-				
-				//Loop through the 6th row
-				for (int x = 0; x < 4; x ++) {
-							
-					//Only place cards on the even places and set the evens to a space
-					if (x % 2 == 0) {
-							
-						//placeCards(5, x, nextDraw);
-							
-					} else {
-								
-						imagineField[5][x] = "  ";
-								
-					}//endIf
-						
-				}//endFor
-				
-				//Loop through the 7th row
-				for (int x = 0; x < 2; x ++) {
-							
-					//Only place cards on the even places and set the evens to a space
-					if (x % 2 == 0) {
-							
-						//placeCards(6, x, nextDraw);
-							
-					} else {
-								
-						imagineField[6][x] = "  ";
-								
-					}//endIf
-							
-				}//endFor
+		//This will set the last card in each column to the card in the imaginary field
+		field[0][13] = imagineField[0][13];
+		field[1][11] = imagineField[1][11];
+		field[2][9] = imagineField[2][9];
+		field[3][7] = imagineField[3][7];
+		field[4][5] = imagineField[4][5];
+		field[5][3] = imagineField[5][3];
+		field[6][1] = imagineField[6][1];
 		
 	}//endMethod
 	
