@@ -13,13 +13,12 @@ public class MainClass {
 		//Play the game
 		//solitaire.playSolitaire();
 		
-		solitaire.generateActualField();
-		
 		
 		//**TESTING**//
 		
-		//System.out.println(solitaire.imagineField);
 		
+		solitaire.generateImagineField();
+		solitaire.printImagineField();
 		
 	}//endMain
 

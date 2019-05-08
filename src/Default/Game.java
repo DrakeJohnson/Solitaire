@@ -45,40 +45,40 @@ public class Game {
 				
 				//Numbers
 				if (y == 0)
-					Deck.add(x + "Spades");
+					Deck.add(x + "S");
 				
 				if (y == 1)
-					Deck.add(x + "Diamonds");
+					Deck.add(x + "D");
 				
 				if (y == 2)
-					Deck.add(x + "Hearts");
+					Deck.add(x + "H");
 				
 				if (y == 3)
-					Deck.add(x + "Clubs");
+					Deck.add(x + "C");
 					
 			}//endFor
 			
 		}//endFor
 		
-		Deck.add("JackSpades");
-		Deck.add("JackDiamonds");
-		Deck.add("JackHearts");
-		Deck.add("JackClubs");
+		Deck.add("JS");
+		Deck.add("JD");
+		Deck.add("JH");
+		Deck.add("JC");
 		
-		Deck.add("QueenSpades");
-		Deck.add("QueenDiamonds");
-		Deck.add("QueenHearts");
-		Deck.add("QueenClubs");
+		Deck.add("QS");
+		Deck.add("QD");
+		Deck.add("QH");
+		Deck.add("QC");
 		
-		Deck.add("KingSpades");
-		Deck.add("KingDiamonds");
-		Deck.add("KingHearts");
-		Deck.add("KingClubs");
+		Deck.add("KS");
+		Deck.add("KD");
+		Deck.add("KH");
+		Deck.add("KC");
 		
-		Deck.add("AceSpades");
-		Deck.add("AceDiamonds");
-		Deck.add("AceHearts");
-		Deck.add("AceClubs");
+		Deck.add("AS");
+		Deck.add("AD");
+		Deck.add("AH");
+		Deck.add("AH");
 		
 	}//endMethod
 	
@@ -154,9 +154,7 @@ public class Game {
 			shuffleDeck();
 			
 			//Generate "imaginary" field
-			generateActualField();
-			
-			
+			generateImagineField();
 			
 			
 			
@@ -170,56 +168,133 @@ public class Game {
 	}//endMethod
 	
 	//Utility function to create the imaginary field
-	public void generateActualField() {
+	public void generateImagineField() {
 		
 		//Variables
 		String nextDraw = " ";
 		
-		//Loop through the columns in the specific row
-		for (int x = 0; x < 14; x ++) {
-			
-			placeCards(0, x, nextDraw);
-			
-		}//endIf
-		
-		//Loop through the second row
+		//First set the entire array to double spaces
 		for (int x = 0; x < 13; x ++) {
 			
-			placeCards(1, x, nextDraw);
-			
-		}//endFor
-		
-		//Loop through the third row
-		for (int x = 0; x < 12; x ++) {
-			
-			placeCards(2, x, nextDraw);
-			
-		}//endFor
-		
-		//Loop through the 4th row
-		for (int x = 0; x < 11; x ++) {
-			
-			placeCards(3, x, nextDraw);
-			
-		}//endFor
-		
-		//Loop through the 5th row
-		for (int x = 0; x < 10; x ++) {
-			
-			placeCards(4, x, nextDraw);
-			
-		}//endFor
-		
-		for (int p = 0; p < 13; p ++) {
-			
-			for (int q = 0; q < 14; q ++) {
+			for (int y = 0; y < 14; y ++) {
 				
-				System.out.print(imagineField[p][q]);
+				imagineField[x][y] = "  ";
 				
 			}//endFor
 			
-			System.out.println("");
+		}//endFor
+		
+		
+		//Loop through the columns in the 1st row
+		for (int x = 0; x < 14; x ++) {
 			
+			//Only place cards on the odd places and set the evens to a space
+			if (x % 2 != 0) {
+			
+				placeCards(0, x, nextDraw);
+			
+			} else {
+				
+				imagineField[0][x] = "  ";
+				
+			}//endIf
+				
+		}//endFor
+		
+		//Loop through the 2nd row
+		for (int x = 0; x < 12; x ++) {
+			
+			//Only place cards on the odd places and set the evens to a space
+			if (x % 2 != 0) {
+			
+				placeCards(1, x, nextDraw);
+			
+			} else {
+				
+				imagineField[1][x] = "  ";
+				
+			}//endIf
+			
+		}//endFor
+		
+		//Loop through the 3rd row
+		for (int x = 0; x < 10; x ++) {
+					
+			//Only place cards on the odd places and set the evens to a space
+			if (x % 2 != 0) {
+					
+				placeCards(2, x, nextDraw);
+					
+			} else {
+						
+				imagineField[2][x] = "  ";
+						
+			}//endIf
+					
+		}//endFor
+				
+		//Loop through the 4th row
+		for (int x = 0; x < 8; x ++) {
+					
+			//Only place cards on the odd places and set the evens to a space
+			if (x % 2 != 0) {
+					
+				placeCards(3, x, nextDraw);
+					
+			} else {
+						
+				imagineField[3][x] = "  ";
+						
+			}//endIf
+					
+		}//endFor
+				
+		//Loop through the 5th row
+		for (int x = 0; x < 6; x ++) {
+					
+			//Only place cards on the odd places and set the evens to a space
+			if (x % 2 != 0) {
+					
+				placeCards(4, x, nextDraw);
+				
+			} else {
+						
+				imagineField[4][x] = "  ";
+						
+			}//endIf
+					
+		}//endFor
+		
+		//Loop through the 6th row
+		for (int x = 0; x < 4; x ++) {
+					
+			//Only place cards on the odd places and set the evens to a space
+			if (x % 2 != 0) {
+					
+				placeCards(5, x, nextDraw);
+					
+			} else {
+						
+				imagineField[5][x] = "  ";
+						
+			}//endIf
+				
+		}//endFor
+		
+		//Loop through the 7th row
+		for (int x = 0; x < 2; x ++) {
+					
+			//Only place cards on the odd places and set the evens to a space
+			if (x % 2 != 0) {
+					
+				placeCards(6, x, nextDraw);
+					
+			} else {
+						
+				imagineField[6][x] = "  ";
+						
+			}//endIf
+					
 		}//endFor
 		
 	}//endMethod
@@ -234,8 +309,25 @@ public class Game {
 		removedFromDeck.add(Deck.remove(0));
 		
 		//Set that card to the position
-		imagineField[currRow][currCol] = next;
+		imagineField[currRow][currCol] = next;		
 		
+	}//endMethod
+
+	//Utility function to print the imaginary field
+	public void printImagineField() {
+		
+		//Loop through each section and print out that space
+		for (int x = 0; x < 13; x ++) {
+			
+			for (int y = 0; y < 14; y ++) {
+				
+				System.out.print(imagineField[x][y]);
+				
+			}//endFor
+			
+			System.out.println("");
+			
+		}//endFor
 		
 	}//endMethod
 	
