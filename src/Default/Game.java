@@ -546,7 +546,23 @@ public class Game {
 			
 			case 1:
 				
-				//Call move score method
+				/*
+				 * Get the card which they want to score with
+				 * Call the moveScore to see if it's a valid move
+				 * 		If so it will move it
+				 * 		Else it will print "Doesn't work"
+				 * Should then return to the menu
+				 */
+				
+				//Variables
+				String card = "  ";
+				int rowPos = 0;
+				int colPos = 0;
+				
+				//Set the variables
+				card = cardFromPlayer();
+				rowPos
+				
 				break;
 				
 			case 2:
@@ -576,17 +592,18 @@ public class Game {
 	}//endMethod
 	
 	//Utility function to check if a move is valid
-	public boolean checkValid(int choice) {
+	public boolean checkValid(int choice, String card) {
 		
 		//Variables
 		boolean works = false;
 		
 		//Switch for each checking method from ValidMoves
+		//Based on which method is being called in this class
 		switch (choice) {
 		
 		case 1:
 			
-			//Call moving to score checker
+			works = checker.checkScoring(scoreField, card);
 			break;
 			
 		case 2:
@@ -609,5 +626,141 @@ public class Game {
 		return works;
 		
 	}//endMethod
+
+	//Utility function to get the card the player wants to choose
+	public String cardFromPlayer() {
+		
+		//Variables
+		String card = "  ";
+		int row = 0;
+		int col = 0;
+		
+		//Prompt, loop until valid
+		do {
+			
+			System.out.print("Enter the card row; ");
+			row = read.nextInt();
+		
+		} while (row > 14 && row < 0);
+		
+		//Second prompt, loop until valid
+		do {
+			
+			System.out.print("Enter the card column (the columns go: CARD | SPACE | CARD etc, so enter an odd column): ");
+			col = read.nextInt();
+			
+		} while (col > 15 && col < 0 && col % 2 != 0);
+		
+		//Set the card to that position the user entered
+		card = imagineField[row][col];
+		
+		return card;
+		
+	}//endMethod
+	
+	//Utility function to get the row position of the card the player chose
+	public int cardRowPos(String card) {
+		
+		//Variables
+		int pos = 0;
+		
+		//TODO
+		//Create this function
+		
+		return pos;
+		
+	}//endMethod
+	
+	//Utility function to move a card to the score position
+	public void moveScore(String card, int rowPos, int colPos) {
+		
+		//First check if the move is valid
+		//Else print it doesn't work
+		if (checkValid(1, card)) {
+			
+			/*
+			 * Set that card in both arrays to a "  "
+			 * Set the provided card to the position in the scoreField
+			 * Flip the next card in line with a **
+			 */
+			
+			imagineField[rowPos][colPos] = "  ";
+			field[rowPos][colPos] = "  ";
+			
+			scoreField[scoreNumPos(card)][scoreSuitPos(card)] = card;
+			
+			field[rowPos - 1][colPos] = imagineField[rowPos - 1][colPos];
+			
+		} else {
+			
+			System.out.println("Doesnt work");
+			
+		}//endIf
+		
+	}//endMethod
+
+	//Utility function that returns the position a card value is according to the list in ValidMoves
+	public int scoreNumPos(String card) {
+		
+		//Variables
+		int position = 0;
+		
+		//Compare the card to the order list to find its position
+		for (int x = 0; x < 13; x ++) {
+			
+			if (card.equals(checker.cardOrder[x].substring(0, 0))) {
+				
+				position = x;
+				
+			}//endIf
+			
+		}//endFor
+		
+		return position;
+		
+	}//endMethod
+	
+	//Utility function that returns the position a card suit is (see checkScoreField in ValidMoves class)
+	public int scoreSuitPos(String card) {
+		
+		//Variables
+		int column = 0;
+		
+		//Checks which suit the card is and sets the array column slot
+		/*
+		 * 0 is spades
+		 * 1 is a space
+		 * 2 is clubs
+		 * 3 is a space
+		 * 4 is diamonds
+		 * 5 is a space
+		 * 6 is hearts
+		 * 7 is a space
+		 */
+		if (card.substring(1, 1).equals("S")) {
+			
+			column = 0;
+			
+		} else if (card.substring(1, 1).equals("C")) {
+			
+			column = 2;
+			
+		} else if (card.substring(1, 1).equals("D")) {
+			
+			column = 4;
+			
+		} else if (card.substring(1, 1).equals("H")) {
+			
+			column = 6;
+			
+		}//endIf
+		
+		return column;
+		
+	}//endMethod
+	
+	
+	
+	
 	
 }//endClass
