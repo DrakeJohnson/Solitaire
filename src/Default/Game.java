@@ -462,13 +462,13 @@ public class Game {
 		}//endFor
 		
 		//This will set the last card in each column to the card in the imaginary field
-		field[0][13] = imagineField[0][13];
-		field[1][11] = imagineField[1][11];
-		field[2][9] = imagineField[2][9];
-		field[3][7] = imagineField[3][7];
-		field[4][5] = imagineField[4][5];
-		field[5][3] = imagineField[5][3];
-		field[6][1] = imagineField[6][1];
+		field[0][12] = imagineField[0][12];
+		field[1][10] = imagineField[1][10];
+		field[2][8] = imagineField[2][8];
+		field[3][6] = imagineField[3][6];
+		field[4][4] = imagineField[4][4];
+		field[5][2] = imagineField[5][2];
+		field[6][0] = imagineField[6][0];
 		
 	}//endMethod
 	
