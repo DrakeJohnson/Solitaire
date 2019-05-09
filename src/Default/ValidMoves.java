@@ -44,13 +44,15 @@ public class ValidMoves {
 		//Compare the card to the order list to find its position
 		for (int x = 0; x < 13; x ++) {
 			
-			if (card.equals(cardOrder[x].substring(0, 0))) {
+			if (cardOrder[x].equals(card.substring(0, 1))) {
 				
 				position = x;
 				
 			}//endIf
 			
 		}//endFor
+		
+		System.out.println(position);
 		
 		/*
 		 * Check if the position is an ace, then return true

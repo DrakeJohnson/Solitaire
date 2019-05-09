@@ -11,11 +11,13 @@ public class MainClass {
 		solitaire.createDeck();
 		
 		//Play the game
-		//solitaire.playSolitaire();
+		solitaire.playSolitaire();
+		
 		
 		
 		//**TESTING**//
 		
+		/*
 		solitaire.shuffleDeck();
 		solitaire.shuffleDeck();
 		
@@ -30,6 +32,7 @@ public class MainClass {
 		solitaire.printField();
 		
 		solitaire.createMenu();
+		*/
 		
 	}//endMain
 

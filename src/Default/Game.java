@@ -7,6 +7,8 @@ import java.util.Random;
 public class Game {
 
 	//Variables
+	int rowPos;
+	int colPos;
 	
 	//Objects
 	Scanner read;
@@ -21,6 +23,9 @@ public class Game {
 	
 	//Constructor
 	public Game() {
+		
+		rowPos = 0;
+		colPos = 0;
 		
 		read = new Scanner(System.in);
 		Deck = new ArrayList<String>();
@@ -174,14 +179,20 @@ public class Game {
 			
 			/*
 			 * This section will collect the user input for the turn and act accordingly
-			 * (It will also make sure the move is valid by a separate function)
+			 * (It will also make sure the move is valid)
 			 * 		Call function if they want to move a set/card
 			 * 		Call function if they want to draw
 			 * 		Call function if they want to score
 			 * 		Call function if they want to start a new game
 			 */
 			
+			//Start the turn
+			getTurn();
 			
+			//Print the field again
+			printField();
+			
+			winGame = true;
 			
 			
 			
@@ -556,12 +567,8 @@ public class Game {
 				
 				//Variables
 				String card = "  ";
-				int rowPos = 0;
-				int colPos = 0;
-				
-				//Set the variables
 				card = cardFromPlayer();
-				rowPos
+				moveScore(card, rowPos, colPos);
 				
 				break;
 				
@@ -632,42 +639,27 @@ public class Game {
 		
 		//Variables
 		String card = "  ";
-		int row = 0;
-		int col = 0;
 		
 		//Prompt, loop until valid
 		do {
 			
-			System.out.print("Enter the card row; ");
-			row = read.nextInt();
+			System.out.print("Enter the card row: ");
+			rowPos = read.nextInt();
 		
-		} while (row > 14 && row < 0);
+		} while (rowPos > 14 && rowPos < 0);
 		
 		//Second prompt, loop until valid
 		do {
 			
 			System.out.print("Enter the card column (the columns go: CARD | SPACE | CARD etc, so enter an odd column): ");
-			col = read.nextInt();
+			colPos = read.nextInt();
 			
-		} while (col > 15 && col < 0 && col % 2 != 0);
+		} while (colPos > 15 && colPos < 0 && colPos % 2 != 0);
 		
 		//Set the card to that position the user entered
-		card = imagineField[row][col];
+		card = imagineField[rowPos - 1][colPos - 1];
 		
 		return card;
-		
-	}//endMethod
-	
-	//Utility function to get the row position of the card the player chose
-	public int cardRowPos(String card) {
-		
-		//Variables
-		int pos = 0;
-		
-		//TODO
-		//Create this function
-		
-		return pos;
 		
 	}//endMethod
 	
