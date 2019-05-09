@@ -17,6 +17,7 @@ public class Game {
 	String[][] field;
 	String[][] imagineField;
 	String[][] scoreField;
+	ValidMoves checker;
 	
 	//Constructor
 	public Game() {
@@ -29,6 +30,7 @@ public class Game {
 		field = new String[13][14];
 		imagineField = new String[13][14];
 		scoreField = new String[13][7];
+		checker = new ValidMoves();
 		
 	}//endConstructor
 	
@@ -40,7 +42,7 @@ public class Game {
 	public void createDeck() {
 		
 		//Creates the cards 2 to 10
-		for (int x = 2; x <= 10; x ++) {
+		for (int x = 1; x < 10; x ++) {
 			
 			//For each suit
 			for (int y = 0; y < 4; y ++) {
@@ -511,7 +513,7 @@ public class Game {
 	
 	//**************************************************************************\\
 	
-	//Function to create the menu
+	//Function to create the first menu
 	public void createMenu() {
 		
 		//Prompt
@@ -539,6 +541,7 @@ public class Game {
 			System.out.print("Enter a number to do a move: ");
 			ans = read.nextInt();
 			
+			//Switch to call different moves based on what they chose
 			switch (ans) {
 			
 			case 1:
@@ -562,13 +565,48 @@ public class Game {
 				break;
 				
 			default:
-				
+	
 				//DOESNT EXIST
 				break;
 			
 			}//endSwitch
 		
-		} while (ans > 4 && ans < 0);
+		} while (ans > 5 && ans < 0);
+		
+	}//endMethod
+	
+	//Utility function to check if a move is valid
+	public boolean checkValid(int choice) {
+		
+		//Variables
+		boolean works = false;
+		
+		//Switch for each checking method from ValidMoves
+		switch (choice) {
+		
+		case 1:
+			
+			//Call moving to score checker
+			break;
+			
+		case 2:
+			
+			//Call drawing 3 cards checker
+			break;
+			
+		case 3:
+			
+			//Call move set/single checker
+			break;
+		
+		default:
+			
+			//DOESNT EXSIST
+			break;
+		
+		}//endSwitch
+		
+		return works;
 		
 	}//endMethod
 	

@@ -16,6 +16,8 @@ public class MainClass {
 		
 		//**TESTING**//
 		
+		solitaire.shuffleDeck();
+		solitaire.shuffleDeck();
 		
 		solitaire.generateImagineField();
 		solitaire.printImagineField();
