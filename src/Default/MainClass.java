@@ -27,6 +27,8 @@ public class MainClass {
 		
 		solitaire.printField();
 		
+		solitaire.createMenu();
+		
 	}//endMain
 
 }//endClass

@@ -158,7 +158,26 @@ public class Game {
 			//Generate "imaginary" field
 			generateImagineField();
 			
+			//Generate & print player's field
+			generateField();
+			printField();
 			
+			/*
+			 * This section will create the menu
+			 * 		Print the menu
+			 */
+			
+			//Create menu
+			createMenu();
+			
+			/*
+			 * This section will collect the user input for the turn and act accordingly
+			 * (It will also make sure the move is valid by a separate function)
+			 * 		Call function if they want to move a set/card
+			 * 		Call function if they want to draw
+			 * 		Call function if they want to score
+			 * 		Call function if they want to start a new game
+			 */
 			
 			
 			
@@ -487,6 +506,69 @@ public class Game {
 			System.out.println("");
 			
 		}//endFor
+		
+	}//endMethod
+	
+	//**************************************************************************\\
+	
+	//Function to create the menu
+	public void createMenu() {
+		
+		//Prompt
+		System.out.println("----Options----");
+		System.out.println("1) Move a card to the top to score");
+		System.out.println("2) Draw the next 3 cards");
+		System.out.println("3) Move a set/single card on the field");
+		System.out.println("4) New Game");
+		
+	}//endMethod
+	
+	//**************************************************************************\\
+	
+	//Function to collect answers and call the separate functions
+	public void getTurn() {
+		
+		//Variables
+		int ans = 0;
+		
+		//Loop until they enter a valid answer
+		do {
+			
+			//Prompt
+			System.out.println("");
+			System.out.print("Enter a number to do a move: ");
+			ans = read.nextInt();
+			
+			switch (ans) {
+			
+			case 1:
+				
+				//Call move score method
+				break;
+				
+			case 2:
+				
+				//Call draw 3 cards method
+				break;
+				
+			case 3:
+				
+				//Call move set/single card
+				break;
+				
+			case 4:
+				
+				//Call new game
+				break;
+				
+			default:
+				
+				//DOESNT EXIST
+				break;
+			
+			}//endSwitch
+		
+		} while (ans > 4 && ans < 0);
 		
 	}//endMethod
 	
