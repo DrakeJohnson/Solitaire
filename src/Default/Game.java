@@ -644,7 +644,7 @@ public class Game {
 		do {
 			
 			System.out.print("Enter the card row: ");
-			rowPos = read.nextInt();
+			rowPos = read.nextInt() - 1;
 		
 		} while (rowPos > 14 && rowPos < 0);
 		
@@ -652,12 +652,12 @@ public class Game {
 		do {
 			
 			System.out.print("Enter the card column (the columns go: CARD | SPACE | CARD etc, so enter an odd column): ");
-			colPos = read.nextInt();
+			colPos = read.nextInt() - 1;
 			
 		} while (colPos > 15 && colPos < 0 && colPos % 2 != 0);
 		
 		//Set the card to that position the user entered
-		card = imagineField[rowPos - 1][colPos - 1];
+		card = imagineField[rowPos][colPos];
 		
 		return card;
 		

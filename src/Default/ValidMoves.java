@@ -39,7 +39,7 @@ public class ValidMoves {
 		
 		//Variables
 		boolean valid = false;
-		int position = 0;
+		int position = -1;
 		
 		//Compare the card to the order list to find its position
 		for (int x = 0; x < 13; x ++) {
@@ -64,7 +64,7 @@ public class ValidMoves {
 			
 			valid = true;
 			
-		} else if (checkScoreField(scoreField, card, position)){
+		} else if (position != -1 && checkScoreField(scoreField, card, position)){
 			
 			valid = true;
 			
