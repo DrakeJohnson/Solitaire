@@ -126,7 +126,9 @@ public class Game {
 		
 	}//endMethod
 
+	
 	//**Solitaire Functions**//
+	
 	
 	//This plays the game solitaire
 	public void playSolitaire() {
@@ -165,6 +167,9 @@ public class Game {
 			//Generate "imaginary" field
 			generateImagineField();
 			
+			//Generate the score field
+			generateScoreField();
+			
 			//Generate & print player's field
 			generateField();
 			printField();
@@ -200,6 +205,8 @@ public class Game {
 		}//endWhile
 		
 	}//endMethod
+	
+	//**************************************************************************\\
 	
 	//Function to create the imaginary field
 	public void generateImagineField() {
@@ -522,6 +529,24 @@ public class Game {
 		
 	}//endMethod
 	
+	//**************************************************************************\\
+	
+	//Function to setup the scoreField
+	public void generateScoreField() {
+		
+		//Loop to set all spaces to "  "
+		for (int x = 0; x < 13; x ++) {
+			
+			for (int y = 0; y < 7; y ++) {
+				
+				scoreField[x][y] = "  ";
+				
+			}//endFor
+			
+		}//endFor
+		
+	}//endMethod
+
 	//**************************************************************************\\
 	
 	//Function to create the first menu
