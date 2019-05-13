@@ -90,7 +90,7 @@ public class Game {
 		Deck.add("AS");
 		Deck.add("AD");
 		Deck.add("AH");
-		Deck.add("AH");
+		Deck.add("AC");
 		
 	}//endMethod
 	
@@ -599,6 +599,19 @@ public class Game {
 		hand[2] = " ";
 		
 	}//endIf
+	
+	//Utility function to print the hand
+	public void printHand() {
+		
+		for (int x = 0; x < 3; x ++) {
+			
+			System.out.print(hand[x] + " ");
+			
+		}//endFor
+		
+		System.out.println("");
+		
+	}//endMethod
 
 	//**************************************************************************\\
 	
@@ -633,6 +646,7 @@ public class Game {
 				//Variables
 				String card = "  ";
 				card = cardFromPlayer();
+				System.out.println("THE CARD IS " + card);
 				moveScore(card, rowPos, colPos);
 				
 				break;
@@ -648,16 +662,16 @@ public class Game {
 				 * Should return to the menu
 				 */
 				
-				if (checkDraw()) {
+				if (checkDraw(Deck)) {
 					
 					nextThreeCards();
-					for (int x = 0; x < 3; x ++) {
-						
-						System.out.print(hand[x] + " ");
-						
-					}//endFor
+					printHand();
 					
-				}//endIF
+				} else {
+					
+					System.out.print("Doesnt Work");
+					
+				}//endIf
 				
 				//Call draw 3 cards method
 				break;
@@ -699,6 +713,43 @@ public class Game {
 		
 		} while (ans > 5 && ans < 0);
 		
+	}//endMethod
+	
+	//**************************************************************************\\
+	
+	//PRIMARY Utility function to move a card to the score position
+	public void moveScore(String card, int rowPos, int colPos) {
+			
+		//First check if the move is valid
+		//Else print it doesn't work
+		if (checkValid(1, card)) {
+				
+			//Variables
+			int numPos = 0;
+			int suitPos = 0;
+				
+			/*
+			 * Set that card in both arrays to a "  "
+			 * Set the provided card to the position in the scoreField
+			 * Flip the next card in line with a **
+			 */
+				
+			imagineField[rowPos][colPos] = "  ";
+			field[rowPos][colPos] = "  ";
+				
+			numPos = scoreNumPos(card);
+			suitPos = scoreSuitPos(card);
+				
+			scoreField[numPos][suitPos] = card;
+				
+			field[rowPos - 1][colPos] = imagineField[rowPos - 1][colPos];
+				
+		} else {
+				
+			System.out.println("Doesnt work");
+				
+		}//endIf
+			
 	}//endMethod
 	
 	//Utility function to check if a move is valid
@@ -761,41 +812,6 @@ public class Game {
 		
 	}//endMethod
 	
-	//PRIMARY Utility function to move a card to the score position
-	public void moveScore(String card, int rowPos, int colPos) {
-		
-		//First check if the move is valid
-		//Else print it doesn't work
-		if (checkValid(1, card)) {
-			
-			//Variables
-			int numPos = 0;
-			int suitPos = 0;
-			
-			/*
-			 * Set that card in both arrays to a "  "
-			 * Set the provided card to the position in the scoreField
-			 * Flip the next card in line with a **
-			 */
-			
-			imagineField[rowPos][colPos] = "  ";
-			field[rowPos][colPos] = "  ";
-			
-			numPos = scoreNumPos(card);
-			suitPos = scoreSuitPos(card);
-			
-			scoreField[numPos][suitPos] = card;
-			
-			field[rowPos - 1][colPos] = imagineField[rowPos - 1][colPos];
-			
-		} else {
-			
-			System.out.println("Doesnt work");
-			
-		}//endIf
-		
-	}//endMethod
-
 	//Utility function that returns the position a card value is according to the list in ValidMoves
 	public int scoreNumPos(String card) {
 		
@@ -856,8 +872,23 @@ public class Game {
 		
 	}//endMethod
 	
+	//***************************************************************************\\
+	
+	//PRIMARY Utility function to transfer the next 3 cards to the hand (and to the discarded pile)
+	public void nextThreeCards() {
+			
+		//Set the next three cards to the spaces in hand, then move that card to the discarded
+		for (int x = 0; x < 3; x ++) {
+				
+			hand[x] = Deck.get(0);
+			discardPile.add(Deck.remove(0));
+				
+		}//endFor
+	
+	}//endMethod
+		
 	//Utility function that returns true if the draw deck has 3 or more cards
-	public boolean checkDraw() {
+	public boolean checkDraw(ArrayList<String> Deck) {
 		
 		//Variables
 		boolean threeOrMore = true;
@@ -872,18 +903,5 @@ public class Game {
 		return threeOrMore;
 		
 	}//endMethod
-	
-	//Utility function to transfer the next 3 cards to the hand (and to the discarded pile)
-	public void nextThreeCards() {
-		
-		//Set the next three cards to the spaces in hand, then move that card to the discarded
-		for (int x = 0; x < 3; x ++) {
-			
-			hand[x] = Deck.get(0);
-			discardPile.add(Deck.remove(0));
-			
-		}//endFor
-		
-	}//endMethid
 	
 }//endClass

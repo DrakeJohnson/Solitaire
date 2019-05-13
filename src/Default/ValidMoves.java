@@ -62,7 +62,7 @@ public class ValidMoves {
 			
 			valid = true;
 			
-		} else if (position != -1 && checkScoreField(scoreField, card, position)){
+		} else if (checkScoreField(scoreField, card, position)){
 			
 			valid = true;
 			
@@ -79,6 +79,8 @@ public class ValidMoves {
 		boolean valid = false;
 		int column = 0;
 		int counter = 0;
+		
+		
 		
 		//Checks which suit the card is and sets the array column slot
 		/*
