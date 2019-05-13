@@ -52,8 +52,6 @@ public class ValidMoves {
 			
 		}//endFor
 		
-		System.out.println(position);
-		
 		/*
 		 * Check if the position is an ace, then return true
 		 * Else check if there are previous cards so that the position can be added, then return true

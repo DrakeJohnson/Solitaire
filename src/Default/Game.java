@@ -13,12 +13,14 @@ public class Game {
 	//Objects
 	Scanner read;
 	ArrayList<String> Deck;
+	//Don't remember the purpose of this one...
 	ArrayList<String> removedFromDeck;
 	ArrayList<String> discardPile;
 	Random rand;
 	String[][] field;
 	String[][] imagineField;
 	String[][] scoreField;
+	String[] hand;
 	ValidMoves checker;
 	
 	//Constructor
@@ -35,6 +37,7 @@ public class Game {
 		field = new String[13][14];
 		imagineField = new String[13][14];
 		scoreField = new String[13][7];
+		hand = new String[3];
 		checker = new ValidMoves();
 		
 	}//endConstructor
@@ -150,29 +153,32 @@ public class Game {
 		boolean winGame = false;
 		boolean loseGame = false;
 		
+		/*
+		 * This section will start the game
+		 * 		Shuffle the deck twice
+		 * 		Generate the imaginary field of strings
+		 * 		Generate and print the player's field of ** and strings
+		 */
+		
+		//Shuffle
+		shuffleDeck();
+		shuffleDeck();
+		
+		//Generate "imaginary" field
+		generateImagineField();
+		
+		//Generate the score field
+		generateScoreField();
+		
+		//Generate & print player's field
+		generateField();
+		printField();
+		
+		//Create a hand
+		setupHand();
+		
 		//Loop until the game is over
 		while (winGame == false && loseGame == false) {
-			
-			/*
-			 * This section will start the game
-			 * 		Shuffle the deck twice
-			 * 		Generate the imaginary field of strings
-			 * 		Generate and print the player's field of ** and strings
-			 */
-			
-			//Shuffle
-			shuffleDeck();
-			shuffleDeck();
-			
-			//Generate "imaginary" field
-			generateImagineField();
-			
-			//Generate the score field
-			generateScoreField();
-			
-			//Generate & print player's field
-			generateField();
-			printField();
 			
 			/*
 			 * This section will create the menu
@@ -194,10 +200,14 @@ public class Game {
 			//Start the turn
 			getTurn();
 			
+			//Print the scoreField
+			printScore();
+			
 			//Print the field again
 			printField();
 			
-			winGame = true;
+			//Just for testing, end the loop early
+			//winGame = true;
 			
 			
 			
@@ -547,6 +557,24 @@ public class Game {
 		
 	}//endMethod
 
+	//Utility function to print the scoring field
+	public void printScore() {
+		
+		//Loop through each section
+		for (int x = 0; x < 13; x ++) {
+			
+			for (int y = 0; y < 7; y ++) {
+				
+				System.out.print(scoreField[x][y]);
+				
+			}//endFor
+			
+			System.out.println("");
+			
+		}//endFor
+		
+	}//endIf
+	
 	//**************************************************************************\\
 	
 	//Function to create the first menu
@@ -561,6 +589,17 @@ public class Game {
 		
 	}//endMethod
 	
+	//**************************************************************************\\
+	
+	//Function to setup the hand
+	public void setupHand() {
+		
+		hand[0] = " ";
+		hand[1] = " ";
+		hand[2] = " ";
+		
+	}//endIf
+
 	//**************************************************************************\\
 	
 	//Function to collect answers and call the separate functions
@@ -583,6 +622,7 @@ public class Game {
 			case 1:
 				
 				/*
+				 * ---Scoring a Card Section---
 				 * Get the card which they want to score with
 				 * Call the moveScore to see if it's a valid move
 				 * 		If so it will move it
@@ -599,15 +639,53 @@ public class Game {
 				
 			case 2:
 				
+				/*
+				 * ---Drawing 3 Cards section---
+				 * Check the size of the draw deck
+				 * 		If more or equal to 3, set the hand array to the next 3 cards
+				 * 		If less than 3, add all the discarded cards back to the draw deck, 
+				 * 			then set the hand array to the next 3 cards
+				 * Should return to the menu
+				 */
+				
+				if (checkDraw()) {
+					
+					nextThreeCards();
+					for (int x = 0; x < 3; x ++) {
+						
+						System.out.print(hand[x] + " ");
+						
+					}//endFor
+					
+				}//endIF
+				
 				//Call draw 3 cards method
 				break;
 				
 			case 3:
 				
 				//Call move set/single card
+				/*
+				 * ---Moving a single card or a set of cards---
+				 * Check if the user wants to use a hand card or field card
+				 * 		If hand card...
+				 * 			chose 1-3
+				 * 			chose the location of a card it should go under
+				 * 			if it works, place it below. If not say "Doesn't work"
+				 * 		If a field card...
+				 * 			chose the location of a card or the top of a set you want to move
+				 * 			chose the location of a card it should go under
+				 * 			if it works, place it below. If not say "Doesn't work"
+				 */
+				
+				System.out.println("In progress");
+				
+				
 				break;
 				
 			case 4:
+			
+				System.out.println("In progress");
 				
 				//Call new game
 				break;
@@ -636,11 +714,6 @@ public class Game {
 		case 1:
 			
 			works = checker.checkScoring(scoreField, card);
-			break;
-			
-		case 2:
-			
-			//Call drawing 3 cards checker
 			break;
 			
 		case 3:
@@ -688,12 +761,16 @@ public class Game {
 		
 	}//endMethod
 	
-	//Utility function to move a card to the score position
+	//PRIMARY Utility function to move a card to the score position
 	public void moveScore(String card, int rowPos, int colPos) {
 		
 		//First check if the move is valid
 		//Else print it doesn't work
 		if (checkValid(1, card)) {
+			
+			//Variables
+			int numPos = 0;
+			int suitPos = 0;
 			
 			/*
 			 * Set that card in both arrays to a "  "
@@ -704,7 +781,10 @@ public class Game {
 			imagineField[rowPos][colPos] = "  ";
 			field[rowPos][colPos] = "  ";
 			
-			scoreField[scoreNumPos(card)][scoreSuitPos(card)] = card;
+			numPos = scoreNumPos(card);
+			suitPos = scoreSuitPos(card);
+			
+			scoreField[numPos][suitPos] = card;
 			
 			field[rowPos - 1][colPos] = imagineField[rowPos - 1][colPos];
 			
@@ -754,19 +834,19 @@ public class Game {
 		 * 6 is hearts
 		 * 7 is a space
 		 */
-		if (card.substring(1, 1).equals("S")) {
+		if (card.substring(1).equals("S")) {
 			
 			column = 0;
 			
-		} else if (card.substring(1, 1).equals("C")) {
+		} else if (card.substring(1).equals("C")) {
 			
 			column = 2;
 			
-		} else if (card.substring(1, 1).equals("D")) {
+		} else if (card.substring(1).equals("D")) {
 			
 			column = 4;
 			
-		} else if (card.substring(1, 1).equals("H")) {
+		} else if (card.substring(1).equals("H")) {
 			
 			column = 6;
 			
@@ -776,8 +856,34 @@ public class Game {
 		
 	}//endMethod
 	
+	//Utility function that returns true if the draw deck has 3 or more cards
+	public boolean checkDraw() {
+		
+		//Variables
+		boolean threeOrMore = true;
+		
+			//Check the deck size to see if it's less than 3, if so change threeOrMore
+			if (Deck.size() < 3) {
+				
+				threeOrMore = false;
+				
+			}//endIf
+			
+		return threeOrMore;
+		
+	}//endMethod
 	
-	
-	
+	//Utility function to transfer the next 3 cards to the hand (and to the discarded pile)
+	public void nextThreeCards() {
+		
+		//Set the next three cards to the spaces in hand, then move that card to the discarded
+		for (int x = 0; x < 3; x ++) {
+			
+			hand[x] = Deck.get(0);
+			discardPile.add(Deck.remove(0));
+			
+		}//endFor
+		
+	}//endMethid
 	
 }//endClass
