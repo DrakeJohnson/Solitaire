@@ -646,7 +646,6 @@ public class Game {
 				//Variables
 				String card = "  ";
 				card = cardFromPlayer();
-				System.out.println("THE CARD IS " + card);
 				moveScore(card, rowPos, colPos);
 				
 				break;
@@ -741,8 +740,13 @@ public class Game {
 			suitPos = scoreSuitPos(card);
 				
 			scoreField[numPos][suitPos] = card;
+			
+			//Only if the card is not in the top row
+			if (rowPos != 0) {
+	
+				field[rowPos - 1][colPos] = imagineField[rowPos - 1][colPos];
 				
-			field[rowPos - 1][colPos] = imagineField[rowPos - 1][colPos];
+			}//endIf
 				
 		} else {
 				
@@ -764,7 +768,12 @@ public class Game {
 		
 		case 1:
 			
-			works = checker.checkScoring(scoreField, card);
+			if (!card.equals("**")) {
+				
+				works = checker.checkScoring(scoreField, card);
+				
+			}//endIf
+				
 			break;
 			
 		case 3:
@@ -806,7 +815,7 @@ public class Game {
 		} while (colPos > 15 && colPos < 0 && colPos % 2 != 0);
 		
 		//Set the card to that position the user entered
-		card = imagineField[rowPos][colPos];
+		card = field[rowPos][colPos];
 		
 		return card;
 		
@@ -901,6 +910,39 @@ public class Game {
 			}//endIf
 			
 		return threeOrMore;
+		
+	}//endMethod
+	
+	//****************************************************************************\\
+	
+	//PRIMARY Utility function to reset the game
+	public void newGame() {
+		
+		/*
+		 * Print a bunch of spaces
+		 * Clear every list and create a new deck & shuffle & lists
+		 */
+		
+		for (int x = 0; x < 10; x ++) {
+			
+			System.out.println("");
+			
+		}//endFor
+		
+		clearLists();
+		newLists();
+		
+	}//endMethod
+	
+	//Utility function to clear each and every list
+	public void clearLists() {
+		
+		
+	}//endMethod
+	
+	//Utility function to make a new deck & make new lists
+	public void newLists() {
+		
 		
 	}//endMethod
 	

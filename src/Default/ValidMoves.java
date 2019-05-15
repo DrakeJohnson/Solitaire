@@ -62,6 +62,10 @@ public class ValidMoves {
 			
 			valid = true;
 			
+		} else if (position == -1) {
+			
+			return valid;
+			
 		} else if (checkScoreField(scoreField, card, position)){
 			
 			valid = true;
@@ -80,8 +84,6 @@ public class ValidMoves {
 		int column = 0;
 		int counter = 0;
 		
-		
-		
 		//Checks which suit the card is and sets the array column slot
 		/*
 		 * 0 is spades
@@ -93,6 +95,7 @@ public class ValidMoves {
 		 * 6 is hearts
 		 * 7 is a space
 		 */
+		
 		if (card.substring(1, 1).equals("S")) {
 			
 			column = 0;
