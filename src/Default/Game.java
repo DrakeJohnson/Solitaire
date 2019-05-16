@@ -698,9 +698,9 @@ public class Game {
 				
 			case 4:
 			
-				System.out.println("In progress");
+				//Call the newGame function
+				newGame();
 				
-				//Call new game
 				break;
 				
 			default:
@@ -859,6 +859,7 @@ public class Game {
 		 * 6 is hearts
 		 * 7 is a space
 		 */
+		
 		if (card.substring(1).equals("S")) {
 			
 			column = 0;
@@ -915,6 +916,98 @@ public class Game {
 	
 	//****************************************************************************\\
 	
+	//PRIMARY utility function that moves the card or set to the next location
+	public void moveCard(int input) {
+		
+		//Variables
+		
+		
+		/*
+		 * If the move is valid:
+		 * 		If the input is 0:
+		 * 			get the card they want
+		 * 			remove cardPicked from hand and put into a temporary variable
+		 * 			set the part of the field to the temporary variable
+		 * 		If the input is 1:
+		 * 			loop through cards starting with cardPicked and going down, set the part of the field to that card
+		 * 			set the old cards to "  "
+		 * 		Else, print ERROR
+		 * Else, print Doesn't Work
+		 */
+		
+		
+		
+	}//endMethod
+	
+	//Utility function that gets the user input to use the hand or field
+	//Utility function that returns if the user wants to move from the hand or field
+	public int moveInput() {
+		
+		//Variables
+		int choice = 0;
+		
+		//Prompt if the hand has objects
+		if (hand[0] != "  ") {
+		
+			System.out.print("Enter a 1 to use a card from the hand, or a 0 to use a card from the field");
+			choice = read.nextInt();
+			
+		}//endIf
+		
+		return choice;
+		
+	}//endMethod
+	
+	//Utility function to check if the move is valid
+	//Utility function that checks if the card is movable
+	public boolean checkMoveValid(String cardPicked, String cardDest) {
+		
+		//Variables
+		boolean works = true;
+		int pickNum = scoreNumPos(cardPicked);
+		int pickSuit = scoreSuitPos(cardPicked);
+		int destNum = scoreNumPos(cardDest);
+		int destSuit = scoreNumPos(cardDest);
+		
+		/*
+		 * Find what suit & position the card is
+		 * Compare to the destination
+		 * If it works, return works, else return false
+		 */
+		
+		if (destNum - pickNum == 1 && ((destSuit < 3 && pickSuit > 3) || (destSuit > 3 && pickSuit < 3))) {
+			
+			return works;
+			
+		} else {
+			
+			return false;
+			
+		}//endIf
+		
+	}//endMethod
+
+	//Utility function to get which card they want from the hand
+	public String cardFromHand() {
+		
+		//Variables
+		String card = "  ";
+		int handPos = -1;
+		
+		//Prompt
+		System.out.print("Enter which card you want by entering their placement (1 2 3): ");
+		handPos = read.nextInt() - 1;
+		
+		//Get the card
+		card = hand[handPos];
+		
+		return card;
+		
+		
+	}//endMethod
+	
+	//****************************************************************************\\
+	
 	//PRIMARY Utility function to reset the game
 	public void newGame() {
 		
@@ -923,9 +1016,15 @@ public class Game {
 		 * Clear every list and create a new deck & shuffle & lists
 		 */
 		
-		for (int x = 0; x < 10; x ++) {
+		for (int x = 0; x < 4; x ++) {
 			
 			System.out.println("");
+			
+			if (x == 2) {
+				
+				System.out.println("--------------------------------------------------");
+				
+			}//endIf
 			
 		}//endFor
 		
@@ -934,15 +1033,68 @@ public class Game {
 		
 	}//endMethod
 	
+	//Clear all the lists
 	//Utility function to clear each and every list
 	public void clearLists() {
 		
+		while (Deck.size() != 0) {
+			
+			Deck.remove(0);
+			
+		}//endWhile
+		
+		while (removedFromDeck.size() != 0) {
+			
+			removedFromDeck.remove(0);
+			
+		}//endWhile
+		
+		while (discardPile.size() != 0) {
+			
+			discardPile.remove(0);
+			
+		}//endWhile
+		
+		for (int x = 0; x < 13; x ++) {
+			
+			for (int y = 0; y < 14; y ++) {
+				
+				imagineField[x][y] = "  ";
+				field[x][y] = "  ";
+				
+			}//endFor
+			
+		}//endFor
+		
+		for (int x = 0; x < 13; x ++) {
+			
+			for (int y = 0; y < 7; y ++) {
+				
+				scoreField[x][y] =  "  ";
+				
+			}//endFor
+			
+		}//endFor
+		
+		hand[0] = "  ";
+		hand[1] = "  ";
+		hand[2] = "  ";
 		
 	}//endMethod
 	
+	//Make all the lists
 	//Utility function to make a new deck & make new lists
 	public void newLists() {
 		
+		createDeck();
+		
+		shuffleDeck();
+		shuffleDeck();
+		
+		generateImagineField();
+		generateField();
+		generateScoreField();
+		setupHand();
 		
 	}//endMethod
 	
