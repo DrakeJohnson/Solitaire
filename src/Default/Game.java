@@ -206,12 +206,6 @@ public class Game {
 			//Print the field again
 			printField();
 			
-			//Just for testing, end the loop early
-			//winGame = true;
-			
-			
-			
-			
 		}//endWhile
 		
 	}//endMethod
@@ -920,7 +914,9 @@ public class Game {
 	public void moveCard(int input) {
 		
 		//Variables
-		
+		int move = 0;
+		String cardPicked = " ";
+		String cardDest = " ";
 		
 		/*
 		 * If the move is valid:
@@ -935,12 +931,33 @@ public class Game {
 		 * Else, print Doesn't Work
 		 */
 		
+		//Get their move
+		move = moveInput();
 		
+		//If they chose hand, get the card from the hand and where they want to place the card
+		if (move == 1) {
+			
+			cardPicked = cardFromHand();
+			cardDest = cardDestination();
+			
+			//Check if the destination is valid
+			if (cardDest.equals("ERROR")) {
+				
+				System.out.println("Destination Error");
+				
+			} else {
+				
+				
+			}
+			
+		}//endIf
 		
 	}//endMethod
 	
 	//Utility function that gets the user input to use the hand or field
 	//Utility function that returns if the user wants to move from the hand or field
+	
+	//Utility function that gets what moving action the user wants to take
 	public int moveInput() {
 		
 		//Variables
@@ -958,8 +975,9 @@ public class Game {
 		
 	}//endMethod
 	
-	//Utility function to check if the move is valid
 	//Utility function that checks if the card is movable
+	
+	//Utility function that checks to make sure that the movement is valid
 	public boolean checkMoveValid(String cardPicked, String cardDest) {
 		
 		//Variables
@@ -988,6 +1006,8 @@ public class Game {
 	}//endMethod
 
 	//Utility function to get which card they want from the hand
+	
+	//Utility function that gets the card the user wants from the hand
 	public String cardFromHand() {
 		
 		//Variables
@@ -1006,9 +1026,43 @@ public class Game {
 		
 	}//endMethod
 	
+	//Utility function to get wheere they want to place the card
+	
+	//Utiltiy function that gets the card the user wants to put the desired cards under
+	public String cardDestination() {
+		
+		//Variables
+		String card = " ";
+		int rowPos = 0;
+		int colPos = 0;
+		
+		//Prompt
+		System.out.print("Here you will enter the card you want to place the previously chosen card under. Enter a row: ");
+		rowPos = read.nextInt() - 1;
+		
+		System.out.print("Enter a column: ");
+		colPos = read.nextInt() - 1;
+		
+		//If the destination is an actual location (top of the list and "  " or an actual card) then return, else print incorrect location
+		if ((!imagineField[rowPos][colPos].equals("  ") && rowPos == 0) || (!imagineField[rowPos][colPos].equals("**"))) {
+		
+			return card;
+			
+		} else {
+			
+			return "ERROR";
+			
+		}//endIf
+		
+	}//endMethod
+	
 	//****************************************************************************\\
 	
 	//PRIMARY Utility function to reset the game
+	
+	//**************************************************************************\\
+	
+	//PRIMARY utility function that starts a new game
 	public void newGame() {
 		
 		/*
@@ -1035,6 +1089,8 @@ public class Game {
 	
 	//Clear all the lists
 	//Utility function to clear each and every list
+	
+	//Utility function that clears all the lists
 	public void clearLists() {
 		
 		while (Deck.size() != 0) {
