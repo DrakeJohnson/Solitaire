@@ -590,9 +590,9 @@ public class Game {
 	//Function to setup the hand
 	public void setupHand() {
 		
-		hand[0] = " ";
-		hand[1] = " ";
-		hand[2] = " ";
+		hand[0] = "  ";
+		hand[1] = "  ";
+		hand[2] = "  ";
 		
 	}//endIf
 	
@@ -990,7 +990,7 @@ public class Game {
 		int choice = 0;
 		
 		//Prompt if the hand has objects
-		if (hand[0] != "  ") {
+		if (hand[0] != "  " || hand[1] != "  " || hand[2] != "  ") {
 		
 			System.out.print("Enter a 1 to use a card from the hand, or a 0 to use a card from the field: ");
 			choice = read.nextInt();
@@ -1082,7 +1082,6 @@ public class Game {
 			
 		//Get the card
 		card = hand[handPos];
-		hand[handPos] = "  ";
 		
 		return card;
 		
@@ -1142,6 +1141,17 @@ public class Game {
 				}//endIf
 				
 			}//endFor
+			
+		}//endFor
+		
+		//Find the cardPicked in the hand and remove it
+		for (int x = 0; x < 3; x ++) {
+			
+			if (hand[x].equals(cardPicked)) {
+				
+				hand[x] = "  ";
+				
+			}//endIf
 			
 		}//endFor
 		
