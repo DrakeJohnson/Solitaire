@@ -9,6 +9,8 @@ public class Game {
 	//Variables
 	int rowPos;
 	int colPos;
+	int desRP;
+	int desCP;
 	
 	//Objects
 	Scanner read;
@@ -1105,20 +1107,18 @@ public class Game {
 		
 		//Variables
 		String card = " ";
-		int rowPos = 0;
-		int colPos = 0;
 		
 		//Prompt
 		System.out.print("Here you will enter the card you want to place the previously chosen card under. Enter a row: ");
-		rowPos = read.nextInt() - 1;
+		desRP = read.nextInt() - 1;
 		
 		System.out.print("Enter a column: ");
-		colPos = read.nextInt() - 1;
+		desCP = read.nextInt() - 1;
 		
 		//If the destination is an actual location (top of the field and "  " or an actual card) then return, else print incorrect location
-		if ((!imagineField[rowPos][colPos].equals("**") && !imagineField[rowPos][colPos].equals("  ")) || (imagineField[rowPos][colPos].equals("  ") && rowPos == 0)) {
+		if ((!imagineField[desRP][desCP].equals("**") && !imagineField[desRP][desCP].equals("  ")) || (imagineField[desRP][desCP].equals("  ") && rowPos == 0)) {
 		
-			card = imagineField[rowPos][colPos];
+			card = imagineField[desRP][desCP];
 			
 			return card;
 			
@@ -1135,26 +1135,6 @@ public class Game {
 	//Utility function that actually moves the card from the hand to the new position
 	public void moveFromHand(String cardPicked, String cardDest) {
 		
-		//Variables
-		int destRow = -1;
-		int destCol = -1;
-		
-		//Find the destination card in the imagineField and set the 2 integers to its coordinates
-		for (int x = 0; x < 13; x ++) {
-			
-			for (int y = 0; y < 14; y ++) {
-				
-				if (imagineField[x][y].equals(cardDest)) {
-					
-					destRow = x;
-					destCol = y;
-					
-				}//endIf
-				
-			}//endFor
-			
-		}//endFor
-		
 		//Find the cardPicked in the hand and remove it
 		for (int x = 0; x < 3; x ++) {
 			
@@ -1167,8 +1147,8 @@ public class Game {
 		}//endFor
 		
 		//In the space below the cardDest's position, replace the "  " with the chosenCard
-		field[destRow + 1][destCol] = cardPicked;
-		imagineField[destRow + 1][destCol] = cardPicked;
+		field[desRP][desCP] = cardPicked;
+		imagineField[desRP][desCP] = cardPicked;
 		
 	}//endMethod
 	
