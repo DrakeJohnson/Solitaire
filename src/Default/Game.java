@@ -697,10 +697,7 @@ public class Game {
 				 * 			chose the location of a card it should go under
 				 * 			if it works, place it below. If not say "Doesn't work"
 				 */
-				
-				
-				System.out.println("In progress");
-				
+
 				moveCard();
 				
 				break;
@@ -1009,6 +1006,8 @@ public class Game {
 		
 		//Variables
 		boolean works = true;
+		int rowPos = -1;
+		int colPos = -1;
 		
 		/*
 		 * If the cardDest is "  " and the cardPicked is a King, then return works
@@ -1022,14 +1021,31 @@ public class Game {
 			
 			return works;
 			
-		} else {
+		} else if (!cardDest.equals("  ")){
 	
+			//Variables for the suit and number value of both cards
 			int pickNum = scoreNumPos(cardPicked);
 			int pickSuit = scoreSuitPos(cardPicked);
 			int destNum = scoreNumPos(cardDest);
 			int destSuit = scoreSuitPos(cardDest);
+			
+			//Position of the cardDest
+			for (int x = 0; x < 13; x ++) {
+				
+				for (int y = 0; y < 14; y ++) {
+					
+					if (imagineField[x][y].equals(cardDest)) {
+						
+						rowPos = x;
+						colPos = y;
+						
+					}//endIf
+					
+				}//endFor
+				
+			}//endFor
 		
-			if (destNum - pickNum == 1 && ((destSuit < 3 && pickSuit > 3) || (destSuit > 3 && pickSuit < 3))) {
+			if (destNum - pickNum == 1 && ((destSuit < 3 && pickSuit > 3) || (destSuit > 3 && pickSuit < 3)) && imagineField[rowPos + 1][colPos].equals("  ")) {
 			
 				return works;
 			
@@ -1039,6 +1055,10 @@ public class Game {
 			
 			}//endIf
 		
+		} else {
+			
+			return false;
+			
 		}//endIf
 			
 	}//endMethod
