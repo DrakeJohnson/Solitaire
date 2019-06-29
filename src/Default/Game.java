@@ -774,6 +774,17 @@ public class Game {
 				
 			} else {
 				
+				//Find the cardPicked in the hand and remove it
+				for (int x = 0; x < 3; x ++) {
+					
+					if (hand[x].equals(card)) {
+						
+						hand[x] = "  ";
+						
+					}//endIf
+					
+				}//endFor
+				
 				numPos = scoreNumPos(card);
 				suitPos = scoreSuitPos(card);
 				
@@ -1017,7 +1028,7 @@ public class Game {
 		 * 		If it works, return works, else return false
 		 */
 		
-		if (cardDest.equals("  ") && cardPicked.charAt(1) == 'K') {
+		if (cardDest.equals("  ") && cardPicked.charAt(0) == 'K') {
 			
 			return works;
 			
