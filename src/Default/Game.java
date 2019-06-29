@@ -699,7 +699,7 @@ public class Game {
 				 * 			chose the location of a card it should go under
 				 * 			if it works, place it below. If not say "Doesn't work"
 				 */
-
+		
 				moveCard();
 				
 				break;
@@ -747,6 +747,8 @@ public class Game {
 			//Variables
 			int numPos = 0;
 			int suitPos = 0;
+			int tempSize = -1;
+			int position = -1;
 				
 			/*
 			 * If the card is from the field
@@ -792,7 +794,26 @@ public class Game {
 				
 				scoreField[numPos][suitPos] = card;
 				
+				//Remove it from the discardPile
+				tempSize = discardPile.size();
+				
+				for (int x = 0; x < tempSize; x ++) {
+					
+					if (discardPile.get(x) == card) {
+						
+						position = x;
+						
+					}//endIf
+					
+				}//endFor
+				
+				discardPile.remove(position);
+				
 			}//endIf
+			
+		} else {
+			
+			System.out.println("Doesn't Work");
 			
 		}//endIf
 			
@@ -950,6 +971,8 @@ public class Game {
 		int move = 0;
 		String cardPicked = " ";
 		String cardDest = " ";
+		int tempSize = -1;
+		int position = -1;
 		
 		/*
 		 * If the move is valid:
@@ -981,6 +1004,21 @@ public class Game {
 			} else if (checkMoveValid(cardPicked, cardDest)) {
 				
 				moveFromHand(cardPicked, cardDest);
+				
+				//Remove the card from the discardPile
+				tempSize = discardPile.size();
+				
+				for (int x = 0; x < tempSize; x ++) {
+					
+					if (discardPile.get(x) == cardPicked) {
+						
+						position = x;
+						
+					}//endIf
+					
+				}//endFor
+				
+				discardPile.remove(position);
 				
 			} else {
 				
@@ -1147,8 +1185,8 @@ public class Game {
 		}//endFor
 		
 		//In the space below the cardDest's position, replace the "  " with the chosenCard
-		field[desRP][desCP] = cardPicked;
-		imagineField[desRP][desCP] = cardPicked;
+		field[desRP + 1][desCP] = cardPicked;
+		imagineField[desRP + 1][desCP] = cardPicked;
 		
 	}//endMethod
 	

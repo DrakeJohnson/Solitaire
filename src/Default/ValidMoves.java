@@ -44,9 +44,10 @@ public class ValidMoves {
 		//Compare the card to the order list to find its position
 		for (int x = 0; x < 13; x ++) {
 			
-			if (cardOrder[x].equals(card.substring(0, 1))) {
+			if (cardOrder[x].charAt(0) == card.charAt(0)) {
 				
 				position = x;
+				System.out.println(x);
 				
 			}//endIf
 			
@@ -96,23 +97,25 @@ public class ValidMoves {
 		 * 7 is a space
 		 */
 		
-		if (card.substring(1, 1).equals("S")) {
+		if (card.charAt(1) == 'S') {
 			
 			column = 0;
 			
-		} else if (card.substring(1, 1).equals("C")) {
+		} else if (card.charAt(1) == 'C') {
 			
 			column = 2;
 			
-		} else if (card.substring(1, 1).equals("D")) {
+		} else if (card.charAt(1) == 'D') {
 			
 			column = 4;
 			
-		} else if (card.substring(1, 1).equals("H")) {
+		} else if (card.charAt(1) == 'H') {
 			
 			column = 6;
 			
 		}//endIf
+		
+		System.out.println(column);
 		
 		//Then checks what the current score in that suit is at by evaluating that specific column
 		//until a "  " is reached then report the current index
@@ -121,6 +124,8 @@ public class ValidMoves {
 			counter ++;
 			
 		}//endWhile
+		
+		System.out.println(counter + "  " + pos);
 		
 		//Then counter will equal the last index before a "  " happens
 		//If that index is the position then it is a valid placement
