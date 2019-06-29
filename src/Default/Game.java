@@ -151,7 +151,6 @@ public class Game {
 		
 		//Variables
 		boolean winGame = false;
-		boolean loseGame = false;
 		
 		/*
 		 * This section will start the game
@@ -178,7 +177,7 @@ public class Game {
 		setupHand();
 		
 		//Loop until the game is over
-		while (winGame == false && loseGame == false) {
+		while (winGame == false) {
 			
 			/*
 			 * This section will create the menu
@@ -199,6 +198,9 @@ public class Game {
 			
 			//Start the turn
 			getTurn();
+			
+			//Print the hand
+			printHand();
 			
 			//Print the scoreField
 			printScore();
@@ -639,9 +641,13 @@ public class Game {
 				
 				//Variables
 				String card = "  ";
-				card = cardFromPlayer();
-				moveScore(card, rowPos, colPos);
 				
+				//Get the card they want to score
+				card = cardFromPlayer();
+				
+				//Call the moving method
+				moveScore(card, rowPos, colPos);
+					
 				break;
 				
 			case 2:
@@ -658,15 +664,22 @@ public class Game {
 				if (checkDraw(Deck)) {
 					
 					nextThreeCards();
-					printHand();
 					
 				} else {
 					
-					System.out.print("Doesnt Work");
+					//Get the size of the discardPile to remove them into the Deck
+					int tempSize = discardPile.size();
+					
+					for (int x = 0; x < tempSize; x ++) {
+						
+						Deck.add(discardPile.remove(0));
+						
+					}//endFor
+					
+					nextThreeCards();
 					
 				}//endIf
-				
-				//Call draw 3 cards method
+
 				break;
 				
 			case 3:
@@ -685,8 +698,10 @@ public class Game {
 				 * 			if it works, place it below. If not say "Doesn't work"
 				 */
 				
+				
 				System.out.println("In progress");
 				
+				moveCard();
 				
 				break;
 				
@@ -713,77 +728,64 @@ public class Game {
 	//PRIMARY Utility function to move a card to the score position
 	public void moveScore(String card, int rowPos, int colPos) {
 			
-		//First check if the move is valid
-		//Else print it doesn't work
-		if (checkValid(1, card)) {
+		//Variables
+		int handOrNot = 0;
+		
+		//Check to see if the card was from the hand or not
+		if (rowPos == -1 && colPos == -1) {
+			
+			handOrNot = 2;
+			
+		} else {
+			
+			handOrNot = 1;
+			
+		}//endIf
+		
+		//Makes sure the move is valid
+		if (checker.checkScoring(scoreField, card)) {
 				
 			//Variables
 			int numPos = 0;
 			int suitPos = 0;
 				
 			/*
-			 * Set that card in both arrays to a "  "
-			 * Set the provided card to the position in the scoreField
-			 * Flip the next card in line with a **
+			 * If the card is from the field
+			 * 		Set that card in both arrays to a "  "
+			 * 		Set the provided card to the position in the scoreField
+			 * 		Flip the next card in line with a **
+			 * Else
+			 * 		Set the card to the position in the scoreField
 			 */
-				
-			imagineField[rowPos][colPos] = "  ";
-			field[rowPos][colPos] = "  ";
-				
-			numPos = scoreNumPos(card);
-			suitPos = scoreSuitPos(card);
-				
-			scoreField[numPos][suitPos] = card;
 			
-			//Only if the card is not in the top row
-			if (rowPos != 0) {
+			if (handOrNot == 1) {
+				
+				imagineField[rowPos][colPos] = "  ";
+				field[rowPos][colPos] = "  ";
+				
+				numPos = scoreNumPos(card);
+				suitPos = scoreSuitPos(card);
+				
+				scoreField[numPos][suitPos] = card;
+			
+				//Only if the card is not in the top row
+				if (rowPos != 0) {
 	
-				field[rowPos - 1][colPos] = imagineField[rowPos - 1][colPos];
+					field[rowPos - 1][colPos] = imagineField[rowPos - 1][colPos];
+				
+				}//endIf
+				
+			} else {
+				
+				numPos = scoreNumPos(card);
+				suitPos = scoreSuitPos(card);
+				
+				scoreField[numPos][suitPos] = card;
 				
 			}//endIf
-				
-		} else {
-				
-			System.out.println("Doesnt work");
-				
+			
 		}//endIf
 			
-	}//endMethod
-	
-	//Utility function to check if a move is valid
-	public boolean checkValid(int choice, String card) {
-		
-		//Variables
-		boolean works = false;
-		
-		//Switch for each checking method from ValidMoves
-		//Based on which method is being called in this class
-		switch (choice) {
-		
-		case 1:
-			
-			if (!card.equals("**")) {
-				
-				works = checker.checkScoring(scoreField, card);
-				
-			}//endIf
-				
-			break;
-			
-		case 3:
-			
-			//Call move set/single checker
-			break;
-		
-		default:
-			
-			//DOESNT EXSIST
-			break;
-		
-		}//endSwitch
-		
-		return works;
-		
 	}//endMethod
 
 	//Utility function to get the card the player wants to choose
@@ -791,28 +793,49 @@ public class Game {
 		
 		//Variables
 		String card = "  ";
+		int choice = -1;
 		
-		//Prompt, loop until valid
+		//Check if they want to move the card from the hand or not
 		do {
 			
-			System.out.print("Enter the card row: ");
-			rowPos = read.nextInt() - 1;
+			System.out.print("Enter a 1 if you are scoring from the hand, or 0 from the field: ");
+			choice = read.nextInt();
 		
-		} while (rowPos > 14 && rowPos < 0);
+		} while (choice < 0 || choice > 1);
 		
-		//Second prompt, loop until valid
-		do {
+		if (choice == 1) {
 			
-			System.out.print("Enter the card column (the columns go: CARD | SPACE | CARD etc, so enter an odd column): ");
-			colPos = read.nextInt() - 1;
+			//Player enters which card they want from the hand, then return it 
+			//(set the colPos and rowPos to -1 to indicate that it was from the hand)
+			rowPos = -1;
+			colPos = -1;
+			return cardFromHand();
 			
-		} while (colPos > 15 && colPos < 0 && colPos % 2 != 0);
+		} else {
+			
+			//Prompt, loop until valid
+			do {
+			
+				System.out.print("Enter the card row: ");
+				rowPos = read.nextInt() - 1;
 		
-		//Set the card to that position the user entered
-		card = field[rowPos][colPos];
+			} while (rowPos > 14 && rowPos < 0);
 		
-		return card;
+			//Second prompt, loop until valid
+			do {
+			
+				System.out.print("Enter the card column (the columns go: CARD | SPACE | CARD etc, so enter an odd column): ");
+				colPos = read.nextInt() - 1;
+			
+			} while (colPos > 15 && colPos < 0 && colPos % 2 != 0);
 		
+			//Set the card to that position the user entered
+			card = field[rowPos][colPos];
+		
+			return card;
+		
+		}//endIf
+			
 	}//endMethod
 	
 	//Utility function that returns the position a card value is according to the list in ValidMoves
@@ -824,7 +847,7 @@ public class Game {
 		//Compare the card to the order list to find its position
 		for (int x = 0; x < 13; x ++) {
 			
-			if (card.equals(checker.cardOrder[x].substring(0, 0))) {
+			if (card.charAt(0) == checker.cardOrder[x].charAt(0)) {
 				
 				position = x;
 				
@@ -911,7 +934,7 @@ public class Game {
 	//****************************************************************************\\
 	
 	//PRIMARY utility function that moves the card or set to the next location
-	public void moveCard(int input) {
+	public void moveCard() {
 		
 		//Variables
 		int move = 0;
@@ -945,17 +968,23 @@ public class Game {
 				
 				System.out.println("Destination Error");
 				
+			} else if (checkMoveValid(cardPicked, cardDest)) {
+				
+				moveFromHand(cardPicked, cardDest);
+				
 			} else {
 				
+				System.out.println("Doesn't Work");
 				
-			}
+			}//endIf
+			
+		} else {
+			
+			//TODO If they chose the field, check to see if it's a card or set, then move the card/set if valid
 			
 		}//endIf
 		
 	}//endMethod
-	
-	//Utility function that gets the user input to use the hand or field
-	//Utility function that returns if the user wants to move from the hand or field
 	
 	//Utility function that gets what moving action the user wants to take
 	public int moveInput() {
@@ -966,7 +995,7 @@ public class Game {
 		//Prompt if the hand has objects
 		if (hand[0] != "  ") {
 		
-			System.out.print("Enter a 1 to use a card from the hand, or a 0 to use a card from the field");
+			System.out.print("Enter a 1 to use a card from the hand, or a 0 to use a card from the field: ");
 			choice = read.nextInt();
 			
 		}//endIf
@@ -975,38 +1004,47 @@ public class Game {
 		
 	}//endMethod
 	
-	//Utility function that checks if the card is movable
-	
 	//Utility function that checks to make sure that the movement is valid
 	public boolean checkMoveValid(String cardPicked, String cardDest) {
 		
 		//Variables
 		boolean works = true;
-		int pickNum = scoreNumPos(cardPicked);
-		int pickSuit = scoreSuitPos(cardPicked);
-		int destNum = scoreNumPos(cardDest);
-		int destSuit = scoreNumPos(cardDest);
 		
 		/*
-		 * Find what suit & position the card is
-		 * Compare to the destination
-		 * If it works, return works, else return false
+		 * If the cardDest is "  " and the cardPicked is a King, then return works
+		 * Else
+		 * 		Find what suit & position the card is
+		 * 		Compare to the destination
+		 * 		If it works, return works, else return false
 		 */
 		
-		if (destNum - pickNum == 1 && ((destSuit < 3 && pickSuit > 3) || (destSuit > 3 && pickSuit < 3))) {
+		if (cardDest.equals("  ") && cardPicked.charAt(1) == 'K') {
 			
 			return works;
 			
 		} else {
-			
-			return false;
-			
-		}//endIf
-		
-	}//endMethod
-
-	//Utility function to get which card they want from the hand
 	
+			int pickNum = scoreNumPos(cardPicked);
+			int pickSuit = scoreSuitPos(cardPicked);
+			int destNum = scoreNumPos(cardDest);
+			int destSuit = scoreSuitPos(cardDest);
+		
+			if (destNum - pickNum == 1 && ((destSuit < 3 && pickSuit > 3) || (destSuit > 3 && pickSuit < 3))) {
+			
+				return works;
+			
+			} else {
+			
+				return false;
+			
+			}//endIf
+		
+		}//endIf
+			
+	}//endMethod
+	
+	//Utility function that retrieves the card from the hand the user wants to use
+
 	//Utility function that gets the card the user wants from the hand
 	public String cardFromHand() {
 		
@@ -1015,20 +1053,24 @@ public class Game {
 		int handPos = -1;
 		
 		//Prompt
-		System.out.print("Enter which card you want by entering their placement (1 2 3): ");
-		handPos = read.nextInt() - 1;
+		do {
 		
+			System.out.print("Enter which card you want by entering their placement (1 2 3): ");
+			handPos = read.nextInt() - 1;
+		
+		} while(handPos < 0 || handPos > 2);
+			
 		//Get the card
 		card = hand[handPos];
+		hand[handPos] = "  ";
 		
 		return card;
 		
-		
 	}//endMethod
 	
-	//Utility function to get wheere they want to place the card
-	
-	//Utiltiy function that gets the card the user wants to put the desired cards under
+	//Utility function that returns the card the user wants to place the previously chosen card under
+
+	//Utility function that gets the card the user wants to put the desired cards under
 	public String cardDestination() {
 		
 		//Variables
@@ -1043,9 +1085,11 @@ public class Game {
 		System.out.print("Enter a column: ");
 		colPos = read.nextInt() - 1;
 		
-		//If the destination is an actual location (top of the list and "  " or an actual card) then return, else print incorrect location
-		if ((!imagineField[rowPos][colPos].equals("  ") && rowPos == 0) || (!imagineField[rowPos][colPos].equals("**"))) {
+		//If the destination is an actual location (top of the field and "  " or an actual card) then return, else print incorrect location
+		if ((!imagineField[rowPos][colPos].equals("**") && !imagineField[rowPos][colPos].equals("  ")) || (imagineField[rowPos][colPos].equals("  ") && rowPos == 0)) {
 		
+			card = imagineField[rowPos][colPos];
+			
 			return card;
 			
 		} else {
@@ -1056,9 +1100,40 @@ public class Game {
 		
 	}//endMethod
 	
+	//Utility function to actually move the card
+
+	//Utility function that actually moves the card from the hand to the new position
+	public void moveFromHand(String cardPicked, String cardDest) {
+		
+		//Variables
+		int destRow = -1;
+		int destCol = -1;
+		
+		//Find the destination card in the imagineField and set the 2 integers to its coordinates
+		for (int x = 0; x < 13; x ++) {
+			
+			for (int y = 0; y < 14; y ++) {
+				
+				if (imagineField[x][y].equals(cardDest)) {
+					
+					destRow = x;
+					destCol = y;
+					
+				}//endIf
+				
+			}//endFor
+			
+		}//endFor
+		
+		//In the space below the cardDest's position, replace the "  " with the chosenCard
+		field[destRow + 1][destCol] = cardPicked;
+		imagineField[destRow + 1][destCol] = cardPicked;
+		
+	}//endMethod
+	
 	//****************************************************************************\\
 	
-	//PRIMARY Utility function to reset the game
+	//PRIMARY Utility function that starts a new game
 	
 	//**************************************************************************\\
 	
@@ -1087,9 +1162,8 @@ public class Game {
 		
 	}//endMethod
 	
-	//Clear all the lists
-	//Utility function to clear each and every list
-	
+	//Utility function that clears all the lists and arrays
+
 	//Utility function that clears all the lists
 	public void clearLists() {
 		
@@ -1138,7 +1212,8 @@ public class Game {
 		
 	}//endMethod
 	
-	//Make all the lists
+	//Utility function that creates the new lists and arrays
+
 	//Utility function to make a new deck & make new lists
 	public void newLists() {
 		

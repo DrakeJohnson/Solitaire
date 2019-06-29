@@ -123,8 +123,8 @@ public class ValidMoves {
 		}//endWhile
 		
 		//Then counter will equal the last index before a "  " happens
-		//If that index is 1 less than the position then it is a valid placement
-		if ((counter + 1) == pos) {
+		//If that index is the position then it is a valid placement
+		if (counter == pos) {
 			
 			valid = true;
 			
