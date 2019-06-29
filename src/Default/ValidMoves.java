@@ -47,7 +47,6 @@ public class ValidMoves {
 			if (cardOrder[x].charAt(0) == card.charAt(0)) {
 				
 				position = x;
-				System.out.println(x);
 				
 			}//endIf
 			
@@ -115,8 +114,6 @@ public class ValidMoves {
 			
 		}//endIf
 		
-		System.out.println(column);
-		
 		//Then checks what the current score in that suit is at by evaluating that specific column
 		//until a "  " is reached then report the current index
 		while (!scoreField[counter][column].equals("  ")) {
@@ -124,8 +121,6 @@ public class ValidMoves {
 			counter ++;
 			
 		}//endWhile
-		
-		System.out.println(counter + "  " + pos);
 		
 		//Then counter will equal the last index before a "  " happens
 		//If that index is the position then it is a valid placement

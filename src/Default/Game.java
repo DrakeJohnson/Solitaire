@@ -969,6 +969,7 @@ public class Game {
 		
 		//Variables
 		int move = 0;
+		int secondMove = 0;
 		String cardPicked = " ";
 		String cardDest = " ";
 		int tempSize = -1;
@@ -1029,6 +1030,11 @@ public class Game {
 		} else {
 			
 			//TODO If they chose the field, check to see if it's a card or set, then move the card/set if valid
+			secondMove = moveCardSetInput();
+			
+			
+			
+			System.out.println("IN PROGRESS");
 			
 		}//endIf
 		
@@ -1038,16 +1044,47 @@ public class Game {
 	public int moveInput() {
 		
 		//Variables
-		int choice = 0;
+		int choice = -1;
 		
 		//Prompt if the hand has objects
-		if (hand[0] != "  " || hand[1] != "  " || hand[2] != "  ") {
+		do {
+				
+			if (hand[0] != "  " || hand[1] != "  " || hand[2] != "  ") {
 		
-			System.out.print("Enter a 1 to use a card from the hand, or a 0 to use a card from the field: ");
-			choice = read.nextInt();
+				do {
+					
+					System.out.print("Enter a 1 to use a card from the hand, or a 0 to use a card from the field: ");
+					choice = read.nextInt();
 			
-		}//endIf
+				} while (choice > 1 || choice < 0);
+					
+			} else {
 		
+				System.out.println("No hand available");
+				choice = 0;
+				
+			}//endIf
+		
+		} while (choice > 1 || choice < 0);
+			
+		return choice;
+		
+	}//endMethod
+	
+	//Utility function that gets whether the player wants to move a set or a single card
+	public int moveCardSetInput() {
+		
+		//Variables
+		int choice = -1;
+		
+		//Prompt if they want to use a card or a set
+		do {
+			
+			System.out.print("Enter a 1 to use a single card, or enter a 0 to use a set: ");
+			choice = read.nextInt();
+		
+		} while (choice > 1 || choice < 0);
+			
 		return choice;
 		
 	}//endMethod
